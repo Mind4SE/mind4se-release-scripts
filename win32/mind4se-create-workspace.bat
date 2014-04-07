@@ -4,9 +4,10 @@ setlocal enableextensions
 rem set PATH=C:/ECP_SF/Tools/Python-3.3.3;%PATH%;C:/ECP_SF/Tools/Git/cmd
 
 rem *******************************************************************************
-rem USAGE: mind4se-create-workspace.bat manifest_branch_name workspace_folder
+rem USAGE: mind4se-create-workspace.bat manifest_url manifest_branch_name workspace_folder
 rem
-rem This script generates a full workspace into provided workspace_folder folder
+rem This script generates a full workspace into provided workspace_folder folder.
+rem Parameters are in order of importance (must specify $1 and $2 if workspace_folder must be changed)
 rem
 rem REQUIREMENTS:
 rem Need installed and in the path:
@@ -25,7 +26,7 @@ set repo_tool_dir=repo_tool
 rem PRIVATE - WORKSPACE
 set release_default_workspace=mind4se-release
 rem PRIVATE - MANIFEST
-set mind4se_manifest_url=https://github.com/geoffroyjabouley/mind4se-release-manifest
+set mind4se_manifest_default_url=https://github.com/geoffroyjabouley/mind4se-release-manifest
 set mind4se_manifest_default_branch=master
 set local_release_manifest_file=src/assemble/resources/manifest.xml
 rem PRIVATE - TOOLS MINIMAL VERSION
@@ -42,18 +43,28 @@ echo.[STEP 1] Checking parameter
 echo.
 
 if "%1" == "" (
+	echo. 	[INFO] No manifest url specified. Using default url "%mind4se_manifest_default_url%". & set mind4se_manifest_url=%mind4se_manifest_default_url%
+	pause
+) else (
+	set mind4se_manifest_url=%1
+)
+echo.	[PARAMETER] mind4se_manifest_url = %mind4se_manifest_url%
+
+if "%2" == "" (
 	echo. 	[INFO] No manifest branch name specified. Using default branch "%mind4se_manifest_default_branch%". & set mind4se_manifest_branch=%mind4se_manifest_default_branch%
 	pause
 ) else (
-	set mind4se_manifest_branch=%1
+	set mind4se_manifest_branch=%2
 )
+echo.	[PARAMETER] mind4se_manifest_branch = %mind4se_manifest_branch%
 
-if "%2" == "" (
+if "%3" == "" (
 	echo. 	[INFO] No release workspace folder provided. Using default worskpace "%release_default_workspace%". & set release_workspace=%release_default_workspace%
 	pause
 ) else (
-	set release_workspace=%2
+	set release_workspace=%3
 )
+echo.	[PARAMETER] release_workspace = %release_workspace%
 
 echo.
 echo.*******************************************************************************
