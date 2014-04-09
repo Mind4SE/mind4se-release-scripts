@@ -1,19 +1,21 @@
 @echo off
 setlocal enableextensions
 
-rem set PATH=C:/ECP_SF/Tools/Python-3.3.3;%PATH%;C:/ECP_SF/Tools/Git/cmd
-
 rem *******************************************************************************
-rem USAGE: mind4se-create-workspace.bat manifest_url manifest_branch_name workspace_folder
+rem USAGE: mind4se-create-workspace.bat [workspace_folder] [manifest_branch_name] [manifest_url]
 rem
+rem DETAILS:
 rem This script generates a full workspace into provided workspace_folder folder.
-rem Parameters are in order of importance (must specify $1 and $2 if workspace_folder must be changed)
+rem
+rem WARNING:
+rem Parameters are specified by order of importance.
+rem You *MUST* specify "workspace_folder" and "manifest_branch_name" if "manifest_url" need to be changed.
 rem
 rem REQUIREMENTS:
 rem Need installed and in the path:
-rem - python 3+
-rem - git 1.7.2+
-rem - curl or wget download utility
+rem 	- python 3+
+rem 	- git 1.7.2+
+rem 	- curl or wget download utility
 rem *******************************************************************************
 
 rem PRIVATE - HTTP PROXY
@@ -26,7 +28,7 @@ set repo_tool_dir=repo_tool
 rem PRIVATE - WORKSPACE
 set release_default_workspace=mind4se-release
 rem PRIVATE - MANIFEST
-set mind4se_manifest_default_url=https://github.com/geoffroyjabouley/mind4se-release-manifest
+set mind4se_manifest_default_url=https://github.com/Mind4SE/mind4se-release-manifest
 set mind4se_manifest_default_branch=master
 set local_release_manifest_file=src/assemble/resources/manifest.xml
 rem PRIVATE - TOOLS MINIMAL VERSION
@@ -38,17 +40,37 @@ echo.===========================================================================
 echo.== MIND4SE Release script: CREATE WORKSPACE
 echo.===============================================================================
 echo.
+
+if "%1" == "-h" (
+	echo.*******************************************************************************
+	echo.USAGE: %0 [workspace_folder] [manifest_branch_name] [manifest_url]
+	echo.
+	echo.DETAILS:
+	echo.This script generates a full workspace into provided workspace_folder folder.
+	echo.
+	echo.WARNING:
+	echo.Parameters are specified by order of importance.
+	echo.You *MUST* specify "workspace_folder" and "manifest_branch_name" if "manifest_url" need to be changed.
+	echo.
+	echo.REQUIREMENTS:
+	echo.Need installed and in the path:
+	echo.	- python 3+
+	echo.	- git 1.7.2+
+	echo.	- curl or wget download utility
+	echo.*******************************************************************************
+	exit /b 0
+)
+
 echo.*******************************************************************************
 echo.[STEP 1] Checking parameter
 echo.
 
 if "%1" == "" (
-	echo. 	[INFO] No manifest url specified. Using default url "%mind4se_manifest_default_url%". & set mind4se_manifest_url=%mind4se_manifest_default_url%
+	echo. 	[INFO] No release workspace folder provided. Using default worskpace "%release_default_workspace%". & set release_workspace=%release_default_workspace%
 	pause
 ) else (
-	set mind4se_manifest_url=%1
+	set release_workspace=%1
 )
-echo.	[PARAMETER] mind4se_manifest_url = %mind4se_manifest_url%
 
 if "%2" == "" (
 	echo. 	[INFO] No manifest branch name specified. Using default branch "%mind4se_manifest_default_branch%". & set mind4se_manifest_branch=%mind4se_manifest_default_branch%
@@ -56,15 +78,19 @@ if "%2" == "" (
 ) else (
 	set mind4se_manifest_branch=%2
 )
-echo.	[PARAMETER] mind4se_manifest_branch = %mind4se_manifest_branch%
 
 if "%3" == "" (
-	echo. 	[INFO] No release workspace folder provided. Using default worskpace "%release_default_workspace%". & set release_workspace=%release_default_workspace%
+	echo. 	[INFO] No manifest url specified. Using default url "%mind4se_manifest_default_url%". & set mind4se_manifest_url=%mind4se_manifest_default_url%
 	pause
 ) else (
-	set release_workspace=%3
+	set mind4se_manifest_url=%3
 )
-echo.	[PARAMETER] release_workspace = %release_workspace%
+
+echo.
+echo.	[CONFIG] release_workspace = %release_workspace%
+echo.	[CONFIG] mind4se_manifest_branch = %mind4se_manifest_branch%
+echo.	[CONFIG] mind4se_manifest_url = %mind4se_manifest_url%
+echo.
 
 echo.
 echo.*******************************************************************************
