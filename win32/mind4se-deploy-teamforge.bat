@@ -2,20 +2,38 @@
 setlocal enableextensions
 
 rem *******************************************************************************
-rem USAGE: mind4se-deploy-teamforge.bat release_workspace
+rem USAGE: mind4se-deploy-teamforge.bat [release_workspace]
 rem
-rem This script will deploy to Teamforge the MIND4SE release previously generated into release_workspace
+rem DETAILS:
+rem This script will deploy to Teamforge the MIND4SE release previously generated into release_workspace.
 rem
 rem REQUIREMENTS:
 rem Need installed and in the path:
-rem - maven
-rem - a valid settings.xml file with teamforge credentials
+rem 	- maven
+rem 	- a valid settings.xml file with teamforge credentials
 rem *******************************************************************************
 
+echo.
 echo.===============================================================================
 echo.== MIND4SE Release script: DEPLOY RELEASE
 echo.===============================================================================
 echo.
+
+if "%1" == "-h" (
+	echo.*******************************************************************************
+	echo.USAGE: %0 [release_workspace]
+	echo.
+	echo.DETAILS:
+	echo.This script will deploy to Teamforge the MIND4SE release previously generated into release_workspace.
+	echo.
+	echo.REQUIREMENTS:
+	echo.Need installed and in the path:
+	echo.	- maven
+	echo.	- a valid settings.xml file with teamforge credentials
+	echo.*******************************************************************************
+	exit /b 0
+)
+
 echo.*******************************************************************************
 echo.[STEP 1] Checking parameter
 echo.
@@ -39,8 +57,8 @@ echo.
 
 pushd %release_workspace%
 
-echo.mvn clean install collabnet:deploy-to-releases --projects :mind4se-compiler -Dteamforge
-call mvn clean install collabnet:deploy-to-releases --projects :mind4se-compiler -Dteamforge || exit /b 1
+echo.mvn clean install collabnet:deploy-to-releases --projects :mind4se-compiler -Dteamforge -DskipTests
+call mvn clean install collabnet:deploy-to-releases --projects :mind4se-compiler -Dteamforge -DskipTests || exit /b 1
 
 popd
 

@@ -2,18 +2,22 @@
 setlocal enableextensions
 
 rem *******************************************************************************
-rem USAGE: mind4se-install-release-full.bat manifest_url manifest_branch_name
+rem USAGE: mind4se-install-release-full.bat [manifest_branch_name] [manifest_url]
 rem
-rem This script will create a workspace and then generate a MIND4SE release
-rem Parameters are in order of importance (must specify $1 if manifest_branch_name must be changed)
+rem DETAILS:
+rem This script will create a workspace and then generate a MIND4SE release.
+rem 
+rem WARNING:
+rem Parameters are specified by order of importance.
+rem You *MUST* specify "manifest_branch_name" if "manifest_url" need to be changed.
 rem
 rem REQUIREMENTS:
 rem Need installed and in the path:
-rem - python 3+
-rem - git 1.7.2+
-rem - curl or wget download utility
-rem - mingw (gcc)
-rem - maven
+rem 	- python 3+
+rem 	- git 1.7.2+
+rem 	- curl or wget download utility
+rem 	- mingw (gcc)
+rem 	- maven
 rem *******************************************************************************
 
 rem PRIVATE - WORKSPACE
@@ -22,36 +26,39 @@ rem PRIVATE - MANIFEST
 set mind4se_manifest_default_url=https://github.com/geoffroyjabouley/mind4se-release-manifest
 set mind4se_manifest_default_branch=master
 
+echo.
 echo.===============================================================================
 echo.== MIND4SE Release script: INSTALL RELEASE FULL
 echo.===============================================================================
 echo.
-echo.*******************************************************************************
-echo.Checking parameter
-echo.
 
-if "%1" == "" (
-	echo. 	[INFO] No manifest url specified. Using default branch "%mind4se_manifest_default_url%". & set mind4se_manifest_url=%mind4se_manifest_default_url%
-	pause
-) else (
-	set mind4se_manifest_url=%1
+if "%1" == "-h" (
+	echo.*******************************************************************************
+	echo.USAGE: %0 [manifest_branch_name] [manifest_url]
+	echo.
+	echo.DETAILS:
+	echo.This script will create a workspace in "%release_workspace%" and then generate a MIND4SE release.
+	echo.
+	echo.WARNING:
+	echo.Parameters are specified by order of importance.
+	echo.You *MUST* specify "manifest_branch_name" if "manifest_url" need to be changed.
+	echo.
+	echo.REQUIREMENTS:
+	echo.Need installed and in the path:
+	echo.	- python 3+
+	echo.	- git 1.7.2+
+	echo.	- curl or wget download utility
+	echo.	- mingw (gcc)
+	echo.	- maven
+	echo.*******************************************************************************
+	exit /b 0
 )
-echo.	[PARAMETER] mind4se_manifest_url = %mind4se_manifest_url%
 
-if "%2" == "" (
-	echo. 	[INFO] No manifest branch name specified. Using default branch "%mind4se_manifest_default_branch%". & set mind4se_manifest_branch=%mind4se_manifest_default_branch%
-	pause
-) else (
-	set mind4se_manifest_branch=%2
-)
-echo.	[PARAMETER] mind4se_manifest_branch = %mind4se_manifest_branch%
-
-echo.
 echo.*******************************************************************************
-echo.Workspace creation (calling script mind4se-create-workspace-only.bat)
+echo.Workspace creation (calling script mind4se-create-workspace.bat)
 echo.
 
-cmd /c mind4se-create-workspace-only.bat %mind4se_manifest_url% %mind4se_manifest_branch% %release_workspace% || exit /b 1
+cmd /c mind4se-create-workspace.bat %release_workspace% %1 %2 || exit /b 1
 
 echo.
 echo.*******************************************************************************

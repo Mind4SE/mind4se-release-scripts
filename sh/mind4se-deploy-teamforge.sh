@@ -1,6 +1,4 @@
-#!/bin/sh
-
-#export PATH=/c/ECP_SF/Tools/Python-3.3.3:$PATH:/c/ECP_SF/Tools/Git/bin
+#!/bin/bash
 
 # *******************************************************************************
 # USAGE: mind4se-deploy-teamforge.sh release_workspace

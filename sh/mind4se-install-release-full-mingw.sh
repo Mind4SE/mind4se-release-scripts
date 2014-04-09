@@ -1,6 +1,4 @@
-#!/bin/sh
-
-# export PATH=/c/ECP_SF/Tools/Python-3.3.3:$PATH:/c/ECP_SF/Tools/Git/bin
+#!/bin/bash
 
 # *******************************************************************************
 # USAGE: mind4se-install-release-full-mingw.sh manifest_branch_name
@@ -38,6 +36,6 @@ else
 	export mind4se_manifest_branch=$1
 fi
 
-/bin/sh mind4se-create-workspace-mingw.sh $mind4se_manifest_branch $release_workspace || exit 1
+/bin/bash mind4se-create-workspace-mingw.sh $mind4se_manifest_branch $release_workspace || exit 1
 
-/bin/sh mind4se-install-release.sh $release_workspace || exit 1
+/bin/bash mind4se-install-release.sh $release_workspace || exit 1

@@ -1,11 +1,10 @@
-#!/bin/sh
-
-#export PATH=/c/ECP_SF/Tools/Python-3.3.3:$PATH:/c/ECP_SF/Tools/Git/bin
+#!/bin/bash
 
 # *******************************************************************************
-# USAGE: mind4se-create-workspace-linux.sh manifest_branch_name workspace_folder
+# USAGE: mind4se-create-workspace-linux.sh manifest_url manifest_branch_name workspace_folder
 #
-# This script generates a full workspace into provided workspace_folder folder
+# This script generates a full workspace into provided workspace_folder folder.
+# Parameters are in order of importance (must specify $1 and $2 if workspace_folder must be changed)
 #
 # REQUIREMENTS:
 # Need installed and in the path:
@@ -24,11 +23,11 @@ export repo_tool_dir=repo_tool
 # PRIVATE - WORKSPACE
 export release_default_workspace=mind4se-release
 # PRIVATE - MANIFEST
-export mind4se_manifest_url=https://github.com/geoffroyjabouley/mind4se-release-manifest
+export mind4se_manifest_default_url=https://github.com/geoffroyjabouley/mind4se-release-manifest
 export mind4se_manifest_default_branch=master
 export local_release_manifest_file=src/assemble/resources/manifest.xml
 # PRIVATE - TOOLS MINIMAL VERSION
-export python_minimal_version_required=2.6
+export python_minimal_version_required=3
 export git_minimal_version_required=1.7.2
 
 printf '\n'
@@ -41,20 +40,32 @@ printf '[STEP 1] Checking parameter\n'
 printf '\n'
 
 if [ -z "$1" ]; then
+	printf '\t[INFO] No manifest url specified. Using default url "%s".\n' $mind4se_manifest_default_url
+	export mind4se_manifest_url=$mind4se_manifest_default_url
+	printf 'Press any key to continue...\n' && read
+else
+	set mind4se_manifest_url=$1
+fi
+
+if [ -z "$2" ]; then
 	printf '\t[INFO] No manifest branch name specified. Using default branch "%s".\n' $mind4se_manifest_default_branch
 	export mind4se_manifest_branch=$mind4se_manifest_default_branch
 	printf 'Press any key to continue...\n' && read
 else
-	export mind4se_manifest_branch=$1
+	export mind4se_manifest_branch=$2
 fi
 
-if [ -z "$2" ]; then
+if [ -z "$3" ]; then
 	printf '\t[INFO] No release workspace folder provided. Using default worskpace "%s".\n' $release_default_workspace
 	export release_workspace=$release_default_workspace
 	printf 'Press any key to continue...\n' && read
 else
-	export release_workspace=$2
+	export release_workspace=$3
 fi
+
+printf '\t[CONFIG] mind4se_manifest_url = %s\n' $mind4se_manifest_url
+printf '\t[CONFIG] mind4se_manifest_branch = %s\n' $mind4se_manifest_branch
+printf '\t[CONFIG] release_workspace = %s\n' $release_workspace
 
 printf '\n'
 printf '*******************************************************************************\n'

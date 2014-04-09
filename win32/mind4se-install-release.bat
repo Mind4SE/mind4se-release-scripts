@@ -2,14 +2,15 @@
 setlocal enableextensions
 
 rem *******************************************************************************
-rem USAGE: mind4se-install-release.bat release_workspace
+rem USAGE: mind4se-install-release.bat [release_workspace]
 rem
-rem This script will generate the MIND4SE release with maven using the provided workspace
+rem DETAILS:
+rem This script will generate the MIND4SE release with maven using the provided workspace.
 rem
 rem REQUIREMENTS:
 rem Need installed and in the path:
-rem - mingw (gcc)
-rem - maven
+rem 	- mingw (gcc)
+rem 	- maven
 rem *******************************************************************************
 
 echo.
@@ -17,6 +18,22 @@ echo.===========================================================================
 echo.== MIND4SE Release script: INSTALL RELEASE
 echo.===============================================================================
 echo.
+
+if "%1" == "-h" (
+	echo.*******************************************************************************
+	echo.USAGE: %0 [release_workspace]
+	echo.
+	echo.DETAILS:
+	echo.This script will generate the MIND4SE release with maven using the provided workspace.
+	echo.
+	echo.REQUIREMENTS:
+	echo.Need installed and in the path:
+	echo.	- mingw (gcc)
+	echo.	- maven
+	echo.*******************************************************************************
+	exit /b 0
+)
+
 echo.*******************************************************************************
 echo.[STEP 1] Checking parameter
 echo.

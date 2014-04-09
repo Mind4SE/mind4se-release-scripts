@@ -1,11 +1,10 @@
-#!/bin/sh
-
-# export PATH=/c/ECP_SF/Tools/Python-3.3.3:$PATH:/c/ECP_SF/Tools/Git/bin
+#!/bin/bash
 
 # *******************************************************************************
-# USAGE: mind4se-install-release-full-linux.sh manifest_branch_name
+# USAGE: mind4se-install-release-full-linux.bat manifest_url manifest_branch_name
 #
 # This script will create a workspace and then generate a MIND4SE release
+# Parameters are in order of importance (must specify $1 if manifest_branch_name must be changed)
 #
 # REQUIREMENTS:
 # Need installed and in the path:
@@ -19,6 +18,7 @@
 # PRIVATE - WORKSPACE
 export release_workspace=mind4se-release
 # PRIVATE - MANIFEST
+export mind4se_manifest_default_url=https://github.com/geoffroyjabouley/mind4se-release-manifest
 export mind4se_manifest_default_branch=master
 
 printf '\n'
@@ -38,6 +38,6 @@ else
 	export mind4se_manifest_branch=$1
 fi
 
-/bin/sh mind4se-create-workspace-linux.sh $mind4se_manifest_branch $release_workspace || exit 1
+/bin/bash mind4se-create-workspace-linux.sh $mind4se_manifest_branch $release_workspace || exit 1
 
-/bin/sh mind4se-install-release.sh $release_workspace || exit 1
+/bin/bash mind4se-install-release.sh $release_workspace || exit 1
