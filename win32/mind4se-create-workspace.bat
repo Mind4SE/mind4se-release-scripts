@@ -28,7 +28,7 @@ set repo_tool_dir=repo_tool
 rem PRIVATE - WORKSPACE
 set release_default_workspace=mind4se-release
 rem PRIVATE - MANIFEST
-set mind4se_manifest_default_url=https://github.com/geoffroyjabouley/mind4se-release-manifest
+set mind4se_manifest_default_url=https://github.com/Mind4SE/mind4se-release-manifest
 set mind4se_manifest_default_branch=master
 set local_release_manifest_file=src/assemble/resources/manifest.xml
 rem PRIVATE - TOOLS MINIMAL VERSION
