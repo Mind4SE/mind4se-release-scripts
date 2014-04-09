@@ -1,16 +1,20 @@
 #!/bin/bash
 
 # *******************************************************************************
-# USAGE: mind4se-create-workspace-mingw.sh manifest_url manifest_branch_name workspace_folder
+# USAGE: mind4se-create-workspace-mingw.sh [workspace_folder] [manifest_branch_name] [manifest_url]
 #
+# DETAILS:
 # This script generates a full workspace into provided workspace_folder folder.
-# Parameters are in order of importance (must specify $1 and $2 if workspace_folder must be changed)
+#
+# WARNING:
+# Parameters are specified by order of importance.
+# You *MUST* specify "workspace_folder" and "manifest_branch_name" if "manifest_url" need to be changed.
 #
 # REQUIREMENTS:
 # Need installed and in the path:
-# - python 3+
-# - git 1.7.2+
-# - curl or wget download utility
+# 	- python 3+
+# 	- git 1.7.2+
+# 	- curl or wget download utility
 # *******************************************************************************
 
 # PRIVATE - HTTP PROXY
@@ -35,16 +39,37 @@ printf '========================================================================
 printf '== MIND4SE Release script: CREATE WORKSPACE\n'
 printf '===============================================================================\n'
 printf '\n'
+
+if [ "$1" == "-h" ]; then
+	printf '*******************************************************************************\n'
+	printf 'USAGE: %s [workspace_folder] [manifest_branch_name] [manifest_url]\n' $0
+	printf '\n'
+	printf 'DETAILS:\n'
+	printf 'This script generates a full workspace into provided workspace_folder folder.\n'
+	printf '\n'
+	printf 'WARNING:\n'
+	printf 'Parameters are specified by order of importance.\n'
+	printf 'You *MUST* specify "workspace_folder" and "manifest_branch_name" if "manifest_url" need to be changed.\n'
+	printf '\n'
+	printf 'REQUIREMENTS:\n'
+	printf 'Need installed and in the path:\n'
+	printf '	- python 3+\n'
+	printf '	- git 1.7.2+\n'
+	printf '	- curl or wget download utility\n'
+	printf '*******************************************************************************\n'
+	exit 0
+fi
+
 printf '*******************************************************************************\n'
 printf '[STEP 1] Checking parameter\n'
 printf '\n'
 
 if [ -z "$1" ]; then
-	printf '\t[INFO] No manifest url specified. Using default url "%s".\n' $mind4se_manifest_default_url
-	export mind4se_manifest_url=$mind4se_manifest_default_url
+	printf '\t[INFO] No release workspace folder provided. Using default worskpace "%s".\n' $release_default_workspace
+	export release_workspace=$release_default_workspace
 	printf 'Press any key to continue...\n' && read
 else
-	set mind4se_manifest_url=$1
+	export release_workspace=$1
 fi
 
 if [ -z "$2" ]; then
@@ -56,16 +81,18 @@ else
 fi
 
 if [ -z "$3" ]; then
-	printf '\t[INFO] No release workspace folder provided. Using default worskpace "%s".\n' $release_default_workspace
-	export release_workspace=$release_default_workspace
+	printf '\t[INFO] No manifest url specified. Using default url "%s".\n' $mind4se_manifest_default_url
+	export mind4se_manifest_url=$mind4se_manifest_default_url
 	printf 'Press any key to continue...\n' && read
 else
-	export release_workspace=$3
+	set mind4se_manifest_url=$3
 fi
 
-printf '\t[CONFIG] mind4se_manifest_url = %s\n' $mind4se_manifest_url
-printf '\t[CONFIG] mind4se_manifest_branch = %s\n' $mind4se_manifest_branch
+printf '\n'
 printf '\t[CONFIG] release_workspace = %s\n' $release_workspace
+printf '\t[CONFIG] mind4se_manifest_branch = %s\n' $mind4se_manifest_branch
+printf '\t[CONFIG] mind4se_manifest_url = %s\n' $mind4se_manifest_url
+printf '\n'
 
 printf '\n'
 printf '*******************************************************************************\n'

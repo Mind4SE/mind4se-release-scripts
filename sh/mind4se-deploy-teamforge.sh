@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # *******************************************************************************
-# USAGE: mind4se-deploy-teamforge.sh release_workspace
+# USAGE: mind4se-deploy-teamforge.sh [release_workspace]
 #
-# This script will deploy to Teamforge the MIND4SE release previously generated into release_workspace
+# DETAILS:
+# This script will deploy to Teamforge the MIND4SE release previously generated into release_workspace.
 #
 # REQUIREMENTS:
 # Need installed and in the path:
-# - maven
-# - a valid settings.xml file with teamforge credentials
+# 	- maven with a valid settings.xml file with teamforge credentials
 # *******************************************************************************
 
 printf '\n'
@@ -16,6 +16,21 @@ printf '========================================================================
 printf '== MIND4SE Release script: DEPLOY RELEASE\n'
 printf '===============================================================================\n'
 printf '\n'
+
+if [ "$1" == "-h" ]; then
+	printf '*******************************************************************************\n'
+	printf 'USAGE: %s [release_workspace]\n' $0
+	printf '\n'
+	printf 'DETAILS:\n'
+	printf 'This script will deploy to Teamforge the MIND4SE release previously generated into release_workspace.\n'
+	printf '\n'
+	printf 'REQUIREMENTS:\n'
+	printf 'Need installed and in the path:\n'
+	printf '	- maven with a valid settings.xml file with teamforge credentials\n'
+	printf '*******************************************************************************\n'
+	exit 0
+fi
+
 printf '*******************************************************************************\n'
 printf '[STEP 1] Checking parameter\n'
 printf '\n'
@@ -48,7 +63,7 @@ printf '\n'
 
 pushd $release_workspace > /dev/null 2>&1
 
-printf 'mvn clean install collabnet:deploy-to-releases --projects :mind4se-compiler -Dteamforge\n'
-mvn clean install collabnet:deploy-to-releases --projects :mind4se-compiler -Dteamforge || exit 1
+printf 'mvn clean install collabnet:deploy-to-releases --projects :mind4se-compiler -Dteamforge -DskipTests\n'
+mvn clean install collabnet:deploy-to-releases --projects :mind4se-compiler -Dteamforge -DskipTests || exit 1
 
 popd > /dev/null 2>&1

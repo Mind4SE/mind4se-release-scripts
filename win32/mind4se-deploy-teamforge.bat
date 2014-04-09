@@ -9,8 +9,7 @@ rem This script will deploy to Teamforge the MIND4SE release previously generate
 rem
 rem REQUIREMENTS:
 rem Need installed and in the path:
-rem 	- maven
-rem 	- a valid settings.xml file with teamforge credentials
+rem 	- maven with a valid settings.xml file with teamforge credentials
 rem *******************************************************************************
 
 echo.
@@ -28,8 +27,7 @@ if "%1" == "-h" (
 	echo.
 	echo.REQUIREMENTS:
 	echo.Need installed and in the path:
-	echo.	- maven
-	echo.	- a valid settings.xml file with teamforge credentials
+	echo.	- maven with a valid settings.xml file with teamforge credentials
 	echo.*******************************************************************************
 	exit /b 0
 )

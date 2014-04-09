@@ -22,9 +22,6 @@ rem ****************************************************************************
 
 rem PRIVATE - WORKSPACE
 set release_workspace=mind4se-release
-rem PRIVATE - MANIFEST
-set mind4se_manifest_default_url=https://github.com/geoffroyjabouley/mind4se-release-manifest
-set mind4se_manifest_default_branch=master
 
 echo.
 echo.===============================================================================

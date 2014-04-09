@@ -1,14 +1,15 @@
 #!/bin/bash
 
 # *******************************************************************************
-# USAGE: mind4se-install-release.sh release_workspace
+# USAGE: mind4se-install-release.sh [release_workspace]
 #
-# This script will generate the MIND4SE release with maven using the provided workspace
+# DETAILS:
+# This script will generate the MIND4SE release with maven using the provided workspace.
 #
 # REQUIREMENTS:
 # Need installed and in the path:
-# - mingw (gcc)
-# - maven
+# 	- mingw (gcc)
+# 	- maven
 # *******************************************************************************
 
 printf '\n'
@@ -16,6 +17,22 @@ printf '========================================================================
 printf '== MIND4SE Release script: INSTALL RELEASE\n'
 printf '===============================================================================\n'
 printf '\n'
+
+if [ "$1" == "-h" ]; then
+	printf '*******************************************************************************\n'
+	printf 'USAGE: %s [release_workspace]\n' $0
+	printf '\n'
+	printf 'DETAILS:\n'
+	printf 'This script will generate the MIND4SE release with maven using the provided workspace.\n'
+	printf '\n'
+	printf 'REQUIREMENTS:\n'
+	printf 'Need installed and in the path:\n'
+	printf '	- mingw (gcc)\n'
+	printf '	- maven\n'
+	printf '*******************************************************************************\n'
+	exit 0
+fi
+
 printf '*******************************************************************************\n'
 printf '[STEP 1] Checking parameter\n'
 printf '\n'

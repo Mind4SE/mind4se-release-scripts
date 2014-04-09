@@ -1,14 +1,18 @@
 #!/bin/bash
 
 # *******************************************************************************
-# USAGE: mind4se-install-release-full-linux.bat manifest_url manifest_branch_name
+# USAGE: mind4se-install-release-full-linux.sh [manifest_branch_name] [manifest_url]
 #
-# This script will create a workspace and then generate a MIND4SE release
-# Parameters are in order of importance (must specify $1 if manifest_branch_name must be changed)
+# DETAILS:
+# This script will create a workspace and then generate a MIND4SE release.
+# 
+# WARNING:
+# Parameters are specified by order of importance.
+# You *MUST* specify "manifest_branch_name" if "manifest_url" need to be changed.
 #
 # REQUIREMENTS:
 # Need installed and in the path:
-# - python 3+
+# - python 2.6+
 # - git 1.7.2+
 # - curl or wget download utility
 # - mingw (gcc)
@@ -17,27 +21,44 @@
 
 # PRIVATE - WORKSPACE
 export release_workspace=mind4se-release
-# PRIVATE - MANIFEST
-export mind4se_manifest_default_url=https://github.com/geoffroyjabouley/mind4se-release-manifest
-export mind4se_manifest_default_branch=master
 
 printf '\n'
 printf '===============================================================================\n'
 printf '== MIND4SE Release script: INSTALL RELEASE FULL\n'
 printf '===============================================================================\n'
 printf '\n'
-printf '*******************************************************************************\n'
-printf '[STEP 1] Checking parameter\n'
-printf '\n'
 
-if [ -z "$1" ]; then
-	printf '\t[INFO] No manifest branch name specified. Using default branch "%s".\n' $mind4se_manifest_default_branch
-	export mind4se_manifest_branch=$mind4se_manifest_default_branch
-	printf 'Press any key to continue...\n' && read
-else
-	export mind4se_manifest_branch=$1
+if [ "$1" == "-h" ]; then
+	printf '*******************************************************************************\n'
+	printf 'USAGE: %s [manifest_branch_name] [manifest_url]\n' $0
+	printf '\n'
+	printf 'DETAILS:\n'
+	printf 'This script will create a workspace in "%s" and then generate a MIND4SE release.\n' $release_workspace
+	printf '\n'
+	printf 'WARNING:\n'
+	printf 'Parameters are specified by order of importance.\n'
+	printf 'You *MUST* specify "manifest_branch_name" if "manifest_url" need to be changed.\n'
+	printf '\n'
+	printf 'REQUIREMENTS:\n'
+	printf 'Need installed and in the path:\n'
+	printf '	- python 3+\n'
+	printf '	- git 1.7.2+\n'
+	printf '	- curl or wget download utility\n'
+	printf '	- mingw (gcc)\n'
+	printf '	- maven\n'
+	printf '*******************************************************************************\n'
+	exit 0
 fi
 
-/bin/bash mind4se-create-workspace-linux.sh $mind4se_manifest_branch $release_workspace || exit 1
+printf '*******************************************************************************\n'
+printf 'Workspace creation (calling script mind4se-create-workspace-linux.sh)\n'
+printf '\n'
+
+/bin/bash mind4se-create-workspace-mingw.sh $release_workspace $1 $2 || exit 1
+
+printf '\n'
+printf '*******************************************************************************\n'
+printf 'Maven install build (calling script mind4se-install-release.sh)\n'
+printf '\n'
 
 /bin/bash mind4se-install-release.sh $release_workspace || exit 1

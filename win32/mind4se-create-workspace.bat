@@ -9,7 +9,7 @@ rem This script generates a full workspace into provided workspace_folder folder
 rem
 rem WARNING:
 rem Parameters are specified by order of importance.
-rem You *MUST* specify "workspace_folder" and "manifest_branch_name" if manifest_url need to be changed.
+rem You *MUST* specify "workspace_folder" and "manifest_branch_name" if "manifest_url" need to be changed.
 rem
 rem REQUIREMENTS:
 rem Need installed and in the path:
