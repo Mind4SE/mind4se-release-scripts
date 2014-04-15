@@ -54,7 +54,7 @@ printf '************************************************************************
 printf 'Workspace creation (calling script mind4se-create-workspace-linux.sh)\n'
 printf '\n'
 
-/bin/bash mind4se-create-workspace-mingw.sh $release_workspace $1 $2 || exit 1
+/bin/bash mind4se-create-workspace-linux.sh $release_workspace $1 $2 || exit 1
 
 printf '\n'
 printf '*******************************************************************************\n'
