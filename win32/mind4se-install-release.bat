@@ -28,7 +28,7 @@ if "%1" == "-h" (
 	echo.
 	echo.REQUIREMENTS:
 	echo.Need installed and in the path:
-	echo.	- mingw (gcc)
+	echo.	- gcc ^(mingw^)
 	echo.	- maven
 	echo.*******************************************************************************
 	exit /b 0

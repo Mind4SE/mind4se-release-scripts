@@ -45,7 +45,7 @@ if "%1" == "-h" (
 	echo.	- python 3+
 	echo.	- git 1.7.2+
 	echo.	- curl or wget download utility
-	echo.	- mingw (gcc)
+	echo.	- gcc ^(mingw^)
 	echo.	- maven
 	echo.*******************************************************************************
 	exit /b 0
