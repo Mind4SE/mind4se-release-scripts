@@ -85,7 +85,7 @@ if [ -z "$3" ]; then
 	export mind4se_manifest_url=$mind4se_manifest_default_url
 	printf 'Press any key to continue...\n' && read
 else
-	set mind4se_manifest_url=$3
+	export mind4se_manifest_url=$3
 fi
 
 printf '\n'
