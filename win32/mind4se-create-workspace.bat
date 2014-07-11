@@ -125,6 +125,16 @@ echo.	[INFO] GIT version: %git_version:~12%
 if %git_version:~12% lss %git_minimal_version_required% echo.[ERROR] GIT version %git_minimal_version_required%+ is required. Exiting. & exit /b 1
 
 echo.
+echo.[STEP 2.3] Checking Git configuration
+echo.
+
+git config -l > config.tmp 2>&1
+findstr /I "core.autocrlf=false" config.tmp > NUL 2>&1
+set wrong_git_config=%ERRORLEVEL%
+del config.tmp
+if %wrong_git_config% neq 0 echo.[ERROR] Missing GIT configuration autocrlf=false. Execute git config --global core.autocrlf=false then restart. Exiting. & exit /b 1
+
+echo.
 echo.*******************************************************************************
 echo.[STEP 3] Repo tool install
 echo.

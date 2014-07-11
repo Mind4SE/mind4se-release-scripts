@@ -150,6 +150,17 @@ if [ "$git_version" \< "$git_minimal_version_required" ]; then
 fi
 
 printf '\n'
+printf '[STEP 2.3] Checking Git configuration\n'
+printf '\n'
+
+git config -l | grep -q "core.autocrlf=false"
+wrong_git_config=$? # if nothing is found, return 1, else return 0
+if [ "$wrong_git_config" -eq "1" ] ; then
+	printf '[ERROR] Missing GIT configuration autocrlf=false. Execute git config --global core.autocrlf=false then restart. Exiting.\n'
+	exit 1
+fi
+
+printf '\n'
 printf '*******************************************************************************\n'
 printf '[STEP 3] Repo tool install\n'
 printf '\n'
