@@ -149,9 +149,9 @@ if defined wget_available (
 	wget -e https_proxy=%proxy_url% --no-check-certificate %repo_tool_url%.cmd -O %repo_tool_dir%/repo.cmd
 )
 if not defined wget_available if defined curl_available (
-	echo.	[INFO] Downloading repo tool from "%repo_tool_url%" into folder "%repo_tool_dir%" using wget
-	wget -e https_proxy=%proxy_url% --no-check-certificate %repo_tool_url% -O %repo_tool_dir%/repo
-	wget -e https_proxy=%proxy_url% --no-check-certificate %repo_tool_url%.cmd -O %repo_tool_dir%/repo.cmd
+	echo. [INFO] Downloading repo tool from "%repo_tool_url%" into folder "%repo_tool_dir%" using curl
+	curl -x %proxy_url% --insecure --output %repo_tool_dir%/repo %repo_tool_url%
+	curl -x %proxy_url% --insecure --output %repo_tool_dir%/repo.cmd %repo_tool_url%.cmd
 )
 
 echo.
