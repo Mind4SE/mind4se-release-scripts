@@ -54,8 +54,8 @@ if "%1" == "-h" (
 	echo.
 	echo.REQUIREMENTS:
 	echo.Need installed and in the path:
-	echo.	- python 3+
-	echo.	- git 1.7.2+
+	echo.	- python %python_minimal_version_required%+
+	echo.	- git %git_minimal_version_required%+
 	echo.	- curl or wget download utility
 	echo.*******************************************************************************
 	exit /b 0
@@ -99,9 +99,9 @@ echo.
 echo.[STEP 2.1] Checking Tools availability into path
 echo.
 
-where /q python || echo.[ERROR] PYTHON not found in the path. PYTHON is needed to download source code. Exiting. && exit /b 1
+where /q python || echo.[ERROR] PYTHON not found in the path. PYTHON %python_minimal_version_required%+ is needed to download source code. Exiting. && exit /b 1
 echo.	[INFO] PYTHON found
-where /q git || echo.[ERROR] GIT not found in the path. GIT is needed to download source code. Exiting. && exit /b 1
+where /q git || echo.[ERROR] GIT not found in the path. GIT %git_minimal_version_required%+ is needed to download source code. Exiting. && exit /b 1
 echo.	[INFO] GIT found
 
 where /q curl && set curl_available=1 && echo.	[INFO] CURL found
@@ -143,15 +143,15 @@ echo.
 
 rmdir /S /Q %repo_tool_dir% > NUL 2>&1
 mkdir %repo_tool_dir%
-if defined curl_available (
-	echo.	[INFO] Downloading repo tool from "%repo_tool_url%" into folder "%repo_tool_dir%" using curl
-	curl -x %proxy_url% --insecure --output %repo_tool_dir%/repo %repo_tool_url%
-	curl -x %proxy_url% --insecure --output %repo_tool_dir%/repo.cmd %repo_tool_url%.cmd
-)
-if not defined curl_available if defined wget_available (
+if defined wget_available (
 	echo.	[INFO] Downloading repo tool from "%repo_tool_url%" into folder "%repo_tool_dir%" using wget
 	wget -e https_proxy=%proxy_url% --no-check-certificate %repo_tool_url% -O %repo_tool_dir%/repo
 	wget -e https_proxy=%proxy_url% --no-check-certificate %repo_tool_url%.cmd -O %repo_tool_dir%/repo.cmd
+)
+if not defined wget_available if defined curl_available (
+	echo. [INFO] Downloading repo tool from "%repo_tool_url%" into folder "%repo_tool_dir%" using curl
+	curl -x %proxy_url% --insecure --output %repo_tool_dir%/repo %repo_tool_url%
+	curl -x %proxy_url% --insecure --output %repo_tool_dir%/repo.cmd %repo_tool_url%.cmd
 )
 
 echo.
