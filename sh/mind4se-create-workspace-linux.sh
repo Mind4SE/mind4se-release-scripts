@@ -12,7 +12,7 @@
 #
 # REQUIREMENTS:
 # Need installed and in the path:
-# 	- python 2.6+
+# 	- python 2.7+
 # 	- git 1.7.2+
 # 	- curl or wget download utility
 # *******************************************************************************
@@ -53,8 +53,8 @@ if [ "$1" == "-h" ]; then
 	printf '\n'
 	printf 'REQUIREMENTS:\n'
 	printf 'Need installed and in the path:\n'
-	printf '	- python 2.6+\n'
-	printf '	- git 1.7.2+\n'
+	printf '	- python %s+\n' $python_minimal_version_required
+	printf '	- git %s+\n' $git_minimal_version_required
 	printf '	- curl or wget download utility\n'
 	printf '*******************************************************************************\n'
 	exit 0
@@ -102,13 +102,13 @@ printf '[STEP 2.1] Checking Tools availability into path\n'
 printf '\n'
 
 if ! which python > /dev/null 2>&1; then
-	printf '[ERROR] PYTHON not found in the path. PYTHON is needed to download source code. Exiting.\n'
+	printf '[ERROR] PYTHON not found in the path. PYTHON %s+ is needed to download source code. Exiting.\n' $python_minimal_version_required
 	exit 1
 fi
 printf '\t[INFO] PYTHON found\n'
 
 if ! which git > /dev/null 2>&1; then
-	printf '[ERROR] GIT not found in the path. GIT is needed to download source code. Exiting.\n'
+	printf '[ERROR] GIT not found in the path. GIT %s+ is needed to download source code. Exiting.\n' $git_minimal_version_required
 	exit 1
 fi
 printf '\t[INFO] GIT found\n'

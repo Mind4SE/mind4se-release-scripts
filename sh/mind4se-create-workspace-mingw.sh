@@ -53,8 +53,8 @@ if [ "$1" == "-h" ]; then
 	printf '\n'
 	printf 'REQUIREMENTS:\n'
 	printf 'Need installed and in the path:\n'
-	printf '	- python 3+\n'
-	printf '	- git 1.7.2+\n'
+	printf '	- python %s+\n' $python_minimal_version_required
+	printf '	- git %s+\n' $git_minimal_version_required
 	printf '	- curl or wget download utility\n'
 	printf '*******************************************************************************\n'
 	exit 0
@@ -102,13 +102,13 @@ printf '[STEP 2.1] Checking Tools availability into path\n'
 printf '\n'
 
 if ! which python > /dev/null 2>&1; then
-	printf '[ERROR] PYTHON not found in the path. PYTHON is needed to download source code. Exiting.\n'
+	printf '[ERROR] PYTHON not found in the path. PYTHON %s+ is needed to download source code. Exiting.\n' $python_minimal_version_required
 	exit 1
 fi
 printf '\t[INFO] PYTHON found\n'
 
 if ! which git > /dev/null 2>&1; then
-	printf '[ERROR] GIT not found in the path. GIT is needed to download source code. Exiting.\n'
+	printf '[ERROR] GIT not found in the path. GIT %s+ is needed to download source code. Exiting.\n' $git_minimal_version_required
 	exit 1
 fi
 printf '\t[INFO] GIT found\n'
@@ -170,11 +170,11 @@ printf '\n'
 rm -rf $repo_tool_dir > /dev/null 2>&1
 mkdir $repo_tool_dir
 export https_proxy=$proxy_url
-if [ $curl_available ]; then
-	printf '\t[INFO] Downloading repo tool from "%s" into folder "%s/%s" using curl' $repo_tool_url $PWD $repo_tool_dir
-	curl -x $proxy_url --insecure --output $repo_tool_dir/repo $repo_tool_url
+if [ $wget_available ]; then
+	printf '\t[INFO] Downloading repo tool from "%s" into folder "%s/%s" using wget' $repo_tool_url $PWD $repo_tool_dir
+	wget -e https_proxy=$proxy_url --no-check-certificate $repo_tool_url -O $repo_tool_dir/repo
 fi
-if [ ! $curl_available ] && [ $wget_available ]; then
+if [ ! $wget_available ] && [ $curl_available ]; then
 	printf '\t[INFO] Downloading repo tool from "%s" into folder "%s/%s" using wget' $repo_tool_url $PWD $repo_tool_dir
 	wget -e https_proxy=$proxy_url --no-check-certificate $repo_tool_url -O $repo_tool_dir/repo
 fi
