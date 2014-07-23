@@ -22,7 +22,7 @@ export proxy_url=pipf.fr.schneider-electric.com:8080
 export http_proxy=http://$proxy_url
 export https_proxy=https://$proxy_url
 # PRIVATE - REPO TOOL
-export repo_tool_url=https://raw.githubusercontent.com/esrlabs/git-repo/master/
+export repo_tool_url=https://raw.githubusercontent.com/esrlabs/git-repo/master/repo
 export repo_tool_dir=repo_tool
 # PRIVATE - WORKSPACE
 export release_default_workspace=mind4se-release
