@@ -22,7 +22,7 @@ export proxy_url=pipf.fr.schneider-electric.com:8080
 export http_proxy=http://$proxy_url
 export https_proxy=https://$proxy_url
 # PRIVATE - REPO TOOL
-export repo_tool_url=https://raw.github.com/esrlabs/git-repo/master/repo
+export repo_tool_url=https://raw.githubusercontent.com/esrlabs/git-repo/master/
 export repo_tool_dir=repo_tool
 # PRIVATE - WORKSPACE
 export release_default_workspace=mind4se-release
@@ -46,6 +46,11 @@ if [ "$1" == "-h" ]; then
 	printf '\n'
 	printf 'DETAILS:\n'
 	printf 'This script generates a full workspace into provided workspace_folder folder.\n'
+	printf '\n'
+	printf 'DEFAULT PARAMS VALUES:\n'
+	printf '	workspace_folder\t= %s/%s\n' $PWD $release_default_workspace
+	printf '	manifest_branch_name\t= %s\n' $mind4se_manifest_default_branch
+	printf '	manifest_url\t\t= %s\n' $mind4se_manifest_default_url
 	printf '\n'
 	printf 'WARNING:\n'
 	printf 'Parameters are specified by order of importance.\n'

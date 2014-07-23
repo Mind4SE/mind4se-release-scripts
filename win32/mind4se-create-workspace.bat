@@ -23,7 +23,7 @@ set proxy_url=pipf.fr.schneider-electric.com:8080
 set http_proxy=http://%proxy_url%
 set https_proxy=https://%proxy_url%
 rem PRIVATE - REPO TOOL
-set repo_tool_url=https://raw.github.com/esrlabs/git-repo/master/repo
+set repo_tool_url=https://raw.githubusercontent.com/esrlabs/git-repo/master/repo
 set repo_tool_dir=repo_tool
 rem PRIVATE - WORKSPACE
 set release_default_workspace=mind4se-release
@@ -47,6 +47,11 @@ if "%1" == "-h" (
 	echo.
 	echo.DETAILS:
 	echo.This script generates a full workspace into provided workspace_folder folder.
+	echo.
+	echo.DEFAULT PARAMS VALUES:
+	echo.	workspace_folder	= %CD%\%release_default_workspace%
+	echo.	manifest_branch_name	= %mind4se_manifest_default_branch%
+	echo.	manifest_url		= %mind4se_manifest_default_url%
 	echo.
 	echo.WARNING:
 	echo.Parameters are specified by order of importance.
