@@ -47,6 +47,11 @@ if [ "$1" == "-h" ]; then
 	printf 'DETAILS:\n'
 	printf 'This script generates a full workspace into provided workspace_folder folder.\n'
 	printf '\n'
+	printf 'DEFAULT PARAMS VALUES:\n'
+	printf '	workspace_folder\t= %s/%s\n' $PWD $release_default_workspace
+	printf '	manifest_branch_name\t= %s\n' $mind4se_manifest_default_branch
+	printf '	manifest_url\t\t= %s\n' $mind4se_manifest_default_url
+	printf '\n'
 	printf 'WARNING:\n'
 	printf 'Parameters are specified by order of importance.\n'
 	printf 'You *MUST* specify "workspace_folder" and "manifest_branch_name" if "manifest_url" need to be changed.\n'
