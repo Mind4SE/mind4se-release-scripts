@@ -136,11 +136,14 @@ printf '\n'
 printf '[STEP 2.2] Checking Tools versions\n'
 printf '\n'
 
+. util_vercomp.sh
+
 python --version > output.tmp 2>&1
 export python_version=$(cat output.tmp | sed 's/Python \([0-9\.]*\)/\1/')
 rm -f output.tmp
 printf '\t[INFO] PYTHON version %s.\n' $python_version
-if [ "$python_version" \< "$python_minimal_version_required" ]; then
+vercomp "$python_minimal_version_required" "$python_version"
+if (($? == 1 )); then
 	printf '[ERROR] PYTHON version %s+ is required. Exiting.\n' $python_minimal_version_required
 	exit 1
 fi
@@ -149,7 +152,8 @@ git --version > output.tmp 2>&1
 export git_version=$(cat output.tmp | sed 's/git version \(.*\)/\1/')
 rm -f output.tmp
 printf '\t[INFO] GIT version %s.\n' $git_version
-if [ "$git_version" \< "$git_minimal_version_required" ]; then
+vercomp "$git_minimal_version_required" "$git_version"
+if (($? == 1 )); then
 	printf '[ERROR] GIT version %s+ is required. Exiting.\n' $git_minimal_version_required
 	exit 1
 fi

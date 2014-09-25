@@ -8,7 +8,7 @@
 #
 # REQUIREMENTS:
 # Need installed and in the path:
-# 	- mingw (gcc)
+# 	- gcc
 # 	- maven
 # *******************************************************************************
 
@@ -27,7 +27,7 @@ if [ "$1" == "-h" ]; then
 	printf '\n'
 	printf 'REQUIREMENTS:\n'
 	printf 'Need installed and in the path:\n'
-	printf '	- mingw (gcc)\n'
+	printf '	- gcc\n'
 	printf '	- maven\n'
 	printf '*******************************************************************************\n'
 	exit 0

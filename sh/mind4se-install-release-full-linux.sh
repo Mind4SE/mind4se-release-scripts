@@ -15,7 +15,7 @@
 # - python 2.6+
 # - git 1.7.2+
 # - curl or wget download utility
-# - mingw (gcc)
+# - gcc
 # - maven
 # *******************************************************************************
 
@@ -38,15 +38,13 @@ if [ "$1" == "-h" ]; then
 	printf 'WARNING:\n'
 	printf 'Parameters are specified by order of importance.\n'
 	printf 'You *MUST* specify "manifest_branch_name" if "manifest_url" need to be changed.\n'
-	printf '\n'
-	printf 'REQUIREMENTS:\n'
-	printf 'Need installed and in the path:\n'
-	printf '	- python 3+\n'
-	printf '	- git 1.7.2+\n'
-	printf '	- curl or wget download utility\n'
-	printf '	- mingw (gcc)\n'
-	printf '	- maven\n'
 	printf '*******************************************************************************\n'
+	printf '\nSee help file of sub-scripts for more details on requirements and parameters.\n\n'
+
+	/bin/bash mind4se-create-workspace-linux.sh -h
+	
+	/bin/bash mind4se-install-release.sh -h
+	
 	exit 0
 fi
 
