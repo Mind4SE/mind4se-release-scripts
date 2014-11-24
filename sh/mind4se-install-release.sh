@@ -74,7 +74,7 @@ pushd $release_workspace > /dev/null 2>&1
 pushd maven/mind-parent > /dev/null 2>&1
 printf 'mvn -U clean install -f ./mind-compiler/pom.xml --projects :mind-compiler\n'
 mvn -U clean install || exit 1
-popd
+popd > /dev/null 2>&1
 
 # Install mind-compiler pom into maven local repository (all mind4se plug-ins pom depend on this one, needed before building)
 printf 'mvn -U clean install -f ./mind-compiler/pom.xml --projects :mind-compiler\n'
