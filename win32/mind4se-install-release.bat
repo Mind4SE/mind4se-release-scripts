@@ -6,6 +6,7 @@ rem USAGE: mind4se-install-release.bat [release_workspace]
 rem
 rem DETAILS:
 rem This script will generate the MIND4SE release with maven using the provided workspace.
+rem Environment variable BUILD_OPTIONS can contain maven build options.
 rem
 rem REQUIREMENTS:
 rem Need installed and in the path:
@@ -25,6 +26,7 @@ if "%1" == "-h" (
 	echo.
 	echo.DETAILS:
 	echo.This script will generate the MIND4SE release with maven using the provided workspace.
+	echo.Environment variable BUILD_OPTIONS can contain maven build options.
 	echo.
 	echo.REQUIREMENTS:
 	echo.Need installed and in the path:
@@ -62,16 +64,16 @@ rem Cleanup maven local repository
 rem rmdir /Q /S "%USERPROFILE%/.m2/repository"
 
 rem Install mind-parent jar into maven local repository (all mind4se modules depend transitively on this one, needed before building)
-echo.mvn -U clean install -f maven/mind-parent/pom.xml
-call mvn -U clean install -f maven/mind-parent/pom.xml || exit /b 1
+echo.mvn -U clean install -f maven/mind-parent/pom.xml %BUILD_OPTIONS%
+call mvn -U clean install -f maven/mind-parent/pom.xml %BUILD_OPTIONS% || exit /b 1
 
 rem Install mind-compiler pom into maven local repository (all mind4se plug-ins pom depend on this one, needed before building)
-echo.mvn -U clean install -f ./mind-compiler/pom.xml --projects :mind-compiler
-call mvn -U clean install -f ./mind-compiler/pom.xml --projects :mind-compiler || exit /b 1
+echo.mvn -U clean install -f ./mind-compiler/pom.xml --projects :mind-compiler %BUILD_OPTIONS%
+call mvn -U clean install -f ./mind-compiler/pom.xml --projects :mind-compiler %BUILD_OPTIONS% || exit /b 1
 
 rem Build the mind4se release
-echo.mvn -U clean install
-call mvn -U clean install || exit /b 1
+echo.mvn -U clean install %BUILD_OPTIONS%
+call mvn -U clean install %BUILD_OPTIONS% || exit /b 1
 
 popd
 

@@ -5,6 +5,7 @@
 #
 # DETAILS:
 # This script will generate the MIND4SE release with maven using the provided workspace.
+# Environment variable BUILD_OPTIONS can contain maven build options.
 #
 # REQUIREMENTS:
 # Need installed and in the path:
@@ -24,6 +25,7 @@ if [ "$1" == "-h" ]; then
 	printf '\n'
 	printf 'DETAILS:\n'
 	printf 'This script will generate the MIND4SE release with maven using the provided workspace.\n'
+	printf 'Environment variable BUILD_OPTIONS can contain maven build options.\n'
 	printf '\n'
 	printf 'REQUIREMENTS:\n'
 	printf 'Need installed and in the path:\n'
@@ -71,15 +73,15 @@ pushd $release_workspace > /dev/null 2>&1
 # rm -rf "~/.m2/repository"
 
 # Install mind-parent jar into maven local repository (all mind4se modules depend transitively on this one, needed before building)
-printf 'mvn -U clean install -f maven/mind-parent/pom.xml\n'
-mvn -U clean install -f maven/mind-parent/pom.xml || exit 1
+printf 'mvn -U clean install -f maven/mind-parent/pom.xml %s\n' $BUILD_OPTIONS
+mvn -U clean install -f maven/mind-parent/pom.xml $BUILD_OPTIONS || exit 1
 
 # Install mind-compiler pom into maven local repository (all mind4se plug-ins pom depend on this one, needed before building)
-printf 'mvn -U clean install -f ./mind-compiler/pom.xml --projects :mind-compiler\n'
-mvn -U clean install -f ./mind-compiler/pom.xml --projects :mind-compiler || exit 1
+printf 'mvn -U clean install -f ./mind-compiler/pom.xml --projects :mind-compiler %s\n' $BUILD_OPTIONS
+mvn -U clean install -f ./mind-compiler/pom.xml --projects :mind-compiler $BUILD_OPTIONS || exit 1
 
 # Build the mind4se release
-printf 'mvn -U clean install\n'
-mvn -U clean install || exit 1
+printf 'mvn -U clean install %s\n' $BUILD_OPTIONS
+mvn -U clean install $BUILD_OPTIONS || exit 1
 
 popd > /dev/null 2>&1
