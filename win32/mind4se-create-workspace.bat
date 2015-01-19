@@ -19,7 +19,7 @@ rem 	- curl or wget download utility
 rem *******************************************************************************
 
 rem PRIVATE - HTTP PROXY
-set proxy_url=pipf.fr.schneider-electric.com:8080
+set proxy_url=205.167.7.126:80
 set http_proxy=http://%proxy_url%
 set https_proxy=https://%proxy_url%
 rem PRIVATE - REPO TOOL
