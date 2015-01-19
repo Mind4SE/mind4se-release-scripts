@@ -18,7 +18,7 @@
 # *******************************************************************************
 
 # PRIVATE - HTTP PROXY
-export proxy_url=pipf.fr.schneider-electric.com:8080
+export proxy_url=205.167.7.126:80
 export http_proxy=http://$proxy_url
 export https_proxy=https://$proxy_url
 # PRIVATE - REPO TOOL
